@@ -25,6 +25,25 @@ struct ContentView: View {
     }
 }
 ```
+
+### Toggle Editing
+
+Easily toggle editing with binding bool.
+
+```swift
+import SwiftUI
+import SPTextField
+
+struct ContentView: View {
+    @State var text: String = ""
+    @State var isEditing: Bool = false
+    
+    var body: some View {
+        SPTextField("placeholder", $text, isEditing: $isEditing)
+    }
+}
+```
+
 3. Customize your `SPTextField`
 ## Examples
 ### Get Started
@@ -49,6 +68,23 @@ struct ContentView: View {
     }
 }
 ```
+Customize with built-in style.
+
+```swift
+import SwiftUI
+import SPTextField
+
+struct ContentView: View {
+    @State var text: String = ""
+    @State var isEditing: Bool = false
+    
+    var body: some View {
+        SPTextField("placeholder", text: $text, isEditing: $isEditing)
+            .style(height: 50, backgroundColor: nil, accentColor: Color.red, font: nil, leadingPadding: 10, cornerRadius: 8, hasShadow: true, image: nil)
+    }
+}
+```
+
 ## Customize
 
 Use this exhaustive input list to customize your text field.

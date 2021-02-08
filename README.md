@@ -81,4 +81,8 @@ Modifier | Description
 `.onClear(perform action: { code })` | Modifies the function called when the user **clears** the text field. ❌
 
 ## Install 
-Use the Swift package manager to install. Find instructions [here](https://github.com/benjaminsage/iPages/blob/main/INSTALL.md)😀
+### Swift Package Manager (SPM)
+The Swift Package Manager is a tool for automating the distribution of Swift code and is integrated into the swift compiler. To integrate using Apple's Swift package manager from xcode :
+
+1. File -> Swift Packages -> Add Package Dependency...
+2. Enter package URL : https://github.com/SNelusha/SPTextField.git, choose the latest release

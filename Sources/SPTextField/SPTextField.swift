@@ -21,6 +21,11 @@ public struct SPTextField: UIViewRepresentable {
     private var hasExternalIsEditing = false
     var designEditing: Bool { externalIsEditing }
     
+    @Binding private var isSelectAll: Bool
+    private var isSelectedAll: Binding<Bool> {
+        $isSelectAll
+    }
+    
     var didBeginEditing: () -> Void = {}
     var didChange: () -> Void = {}
     var didEndEditing: () -> Void = {}
@@ -53,7 +58,7 @@ public struct SPTextField: UIViewRepresentable {
     @Environment(\.layoutDirection) var layoutDirection: LayoutDirection
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     
-    public init(_ placeholder: String, text: Binding<String>, isEditing: Binding<Bool>? = nil) {
+    public init(_ placeholder: String, text: Binding<String>, isEditing: Binding<Bool>? = nil, isSelectAll: Binding<Bool>? = nil) {
         self.placeholder = placeholder
         self._text = text
         if let isEditing = isEditing {
@@ -61,6 +66,11 @@ public struct SPTextField: UIViewRepresentable {
             self.hasExternalIsEditing = true
         } else {
             self._externalIsEditing = Binding<Bool>(get: { false }, set: { _ in })
+        }
+        if let isSelectAll = isSelectAll {
+            self._isSelectAll = isSelectAll
+        } else {
+            self._isSelectAll = Binding<Bool>(get: { false }, set: { _ in })
         }
     }
     
@@ -141,6 +151,19 @@ public struct SPTextField: UIViewRepresentable {
                 if let start = start, let end = end {
                     textField.selectedTextRange = textField.textRange(from: start, to: end)
                 }
+            }
+        }
+        
+        if isSelectAll {
+            var start: UITextPosition?
+            var end: UITextPosition?
+            
+            if let selectedRange = textField.selectedTextRange {
+                start = selectedRange.start
+                end = selectedRange.end
+            }
+            if let start = start, let end = end {
+                textField.selectedTextRange = textField.textRange(from: start, to: end)
             }
         }
         
